@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Datapoint.xml" />
+
+	<PropertyGroup>
+		<RootNamespace>Datapoint.UnitOfWork</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Datapoint.UnitOfWork.Abstractions\Datapoint.UnitOfWork.Abstractions.csproj" />
+	</ItemGroup>
+
+</Project>

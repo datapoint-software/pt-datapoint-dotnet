@@ -1,0 +1,81 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34408.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datapoint.Mediator", "Datapoint.Mediator\Datapoint.Mediator.csproj", "{8314C5D5-C6E2-458C-965D-161B50DCFD80}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9CFA2BA1-7536-4E54-9898-B854C877B5FA}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Datapoint.xml = Datapoint.xml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datapoint.Mediator.Abstractions", "Datapoint.Mediator.Abstractions\Datapoint.Mediator.Abstractions.csproj", "{DC563A33-2BCB-4724-90A2-5626DF504E01}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datapoint.Mediator.FluentValidation", "Datapoint.Mediator.FluentValidation\Datapoint.Mediator.FluentValidation.csproj", "{690B404F-2FD0-49EC-B44E-6D1173DD5B64}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datapoint.UnitOfWork", "Datapoint.UnitOfWork\Datapoint.UnitOfWork.csproj", "{F183C7BD-B761-45A4-BABB-E071C27C8C75}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datapoint.UnitOfWork.EntityFrameworkCore", "Datapoint.UnitOfWork.EntityFrameworkCore\Datapoint.UnitOfWork.EntityFrameworkCore.csproj", "{08606F85-AB90-41C3-A1FB-B4E4158E79E0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datapoint.UnitOfWork.Abstractions", "Datapoint.UnitOfWork.Abstractions\Datapoint.UnitOfWork.Abstractions.csproj", "{EBF4A4BF-60D5-4EC7-979B-F01E83671E47}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datapoint.AspNetCore.ErrorResponses", "Datapoint.AspNetCore.ErrorResponses\Datapoint.AspNetCore.ErrorResponses.csproj", "{2452E339-C512-4784-B15B-A85F3DDA7877}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datapoint.AspNetCore.ErrorResponses.Abstractions", "Datapoint.AspNetCore.ErrorResponses.Abstractions\Datapoint.AspNetCore.ErrorResponses.Abstractions.csproj", "{69F5BC28-7D7D-41A7-BD5D-CE73E56C1614}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datapoint.Exceptions", "Datapoint.Exceptions\Datapoint.Exceptions.csproj", "{9C96F859-3AD7-4D9F-B519-C5C16BEE6C6A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8314C5D5-C6E2-458C-965D-161B50DCFD80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8314C5D5-C6E2-458C-965D-161B50DCFD80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8314C5D5-C6E2-458C-965D-161B50DCFD80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8314C5D5-C6E2-458C-965D-161B50DCFD80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC563A33-2BCB-4724-90A2-5626DF504E01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC563A33-2BCB-4724-90A2-5626DF504E01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC563A33-2BCB-4724-90A2-5626DF504E01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC563A33-2BCB-4724-90A2-5626DF504E01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{690B404F-2FD0-49EC-B44E-6D1173DD5B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{690B404F-2FD0-49EC-B44E-6D1173DD5B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{690B404F-2FD0-49EC-B44E-6D1173DD5B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{690B404F-2FD0-49EC-B44E-6D1173DD5B64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F183C7BD-B761-45A4-BABB-E071C27C8C75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F183C7BD-B761-45A4-BABB-E071C27C8C75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F183C7BD-B761-45A4-BABB-E071C27C8C75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F183C7BD-B761-45A4-BABB-E071C27C8C75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08606F85-AB90-41C3-A1FB-B4E4158E79E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08606F85-AB90-41C3-A1FB-B4E4158E79E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08606F85-AB90-41C3-A1FB-B4E4158E79E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08606F85-AB90-41C3-A1FB-B4E4158E79E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBF4A4BF-60D5-4EC7-979B-F01E83671E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBF4A4BF-60D5-4EC7-979B-F01E83671E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBF4A4BF-60D5-4EC7-979B-F01E83671E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBF4A4BF-60D5-4EC7-979B-F01E83671E47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2452E339-C512-4784-B15B-A85F3DDA7877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2452E339-C512-4784-B15B-A85F3DDA7877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2452E339-C512-4784-B15B-A85F3DDA7877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2452E339-C512-4784-B15B-A85F3DDA7877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69F5BC28-7D7D-41A7-BD5D-CE73E56C1614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69F5BC28-7D7D-41A7-BD5D-CE73E56C1614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69F5BC28-7D7D-41A7-BD5D-CE73E56C1614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69F5BC28-7D7D-41A7-BD5D-CE73E56C1614}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C96F859-3AD7-4D9F-B519-C5C16BEE6C6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C96F859-3AD7-4D9F-B519-C5C16BEE6C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C96F859-3AD7-4D9F-B519-C5C16BEE6C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C96F859-3AD7-4D9F-B519-C5C16BEE6C6A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6E2F7B46-407F-4D7B-B5C1-567AD23C44E0}
+	EndGlobalSection
+EndGlobal

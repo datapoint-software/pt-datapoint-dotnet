@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Datapoint.xml" />
+
+	<PropertyGroup>
+		<RootNamespace>Datapoint.Mediator.FluentValidation</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="FluentValidation" Version="11.9.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Datapoint.Exceptions\Datapoint.Exceptions.csproj" />
+		<ProjectReference Include="..\Datapoint.Mediator\Datapoint.Mediator.csproj" />
+	</ItemGroup>
+
+</Project>
