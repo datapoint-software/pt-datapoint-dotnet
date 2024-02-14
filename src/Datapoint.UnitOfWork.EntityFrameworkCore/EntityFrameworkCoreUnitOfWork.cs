@@ -22,11 +22,11 @@ namespace Datapoint.UnitOfWork.EntityFrameworkCore
                 {
                     if (e.Entry.Entity is IEntity entity)
                     {
-                        if ((entity is IEntity.IPublicId entityWithPublicId) && entityWithPublicId.PublicId == default)
-                            entityWithPublicId.PublicId = Guid.NewGuid();
+                        if (entity.PublicId == default)
+                            entity.PublicId = Guid.NewGuid();
 
-                        if ((entity is IEntity.IRowVersionId entityWithRowVersionId) && entityWithRowVersionId.RowVersionId == default)
-                            entityWithRowVersionId.RowVersionId = Guid.NewGuid();
+                        if (entity.RowVersionId == default)
+                            entity.RowVersionId = Guid.NewGuid();
                     }
                 }
             };
@@ -39,11 +39,11 @@ namespace Datapoint.UnitOfWork.EntityFrameworkCore
                     {
                         if (entry.Entity is IEntity entity)
                         {
-                            if ((entity is IEntity.IPublicId entityWithPublicId) && entityWithPublicId.PublicId == default)
-                                entityWithPublicId.PublicId = Guid.NewGuid();
+                            if (entity.PublicId == default)
+                                entity.PublicId = Guid.NewGuid();
 
-                            if ((entity is IEntity.IRowVersionId entityWithRowVersionId) && (entityWithRowVersionId.RowVersionId == default || entityWithRowVersionId.RowVersionId == entry.OriginalValues.GetValue<Guid>("RowVersionId")))
-                                entityWithRowVersionId.RowVersionId = Guid.NewGuid();
+                            if (entity.RowVersionId == default || entity.RowVersionId == entry.OriginalValues.GetValue<Guid>("RowVersionId"))
+                                entity.RowVersionId = Guid.NewGuid();
                         }
                     }
                 }

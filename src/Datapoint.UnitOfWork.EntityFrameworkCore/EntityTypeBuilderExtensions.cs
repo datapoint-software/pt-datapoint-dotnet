@@ -8,46 +8,61 @@ namespace Datapoint.UnitOfWork.EntityFrameworkCore
     public static class EntityTypeBuilderExtensions
     {
         /// <summary>
+        /// Maps all entity properties.
+        /// </summary>
+        /// <typeparam name="TEntity">The entity type.</typeparam>
+        /// <param name="builder">The entity type builder.</param>
+        /// <returns>The key builder.</returns>
+        public static EntityTypeBuilder<TEntity> Entity<TEntity>(this EntityTypeBuilder<TEntity> builder) where TEntity : class, IEntity
+        {
+            builder.Id();
+            builder.PublicId();
+            builder.RowVersionId();
+
+            return builder;
+        }
+
+        /// <summary>
         /// Maps the identifier property.
         /// </summary>
         /// <typeparam name="TEntity">The entity type.</typeparam>
-        /// <param name="entity">The entity.</param>
+        /// <param name="builder">The entity type builder.</param>
         /// <returns>The key builder.</returns>
-        public static EntityTypeBuilder<TEntity> Id<TEntity>(this EntityTypeBuilder<TEntity> entity) where TEntity : class, IEntity.IId
+        public static EntityTypeBuilder<TEntity> Id<TEntity>(this EntityTypeBuilder<TEntity> builder) where TEntity : class, IEntity
         {
-            entity.HasKey(e => e.Id);
+            builder.HasKey(e => e.Id);
 
-            entity.Property(e => e.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Property(e => e.Id).IsRequired().ValueGeneratedOnAdd();
 
-            return entity;
+            return builder;
         }
 
         /// <summary>
         /// Maps the public identifier property.
         /// </summary>
         /// <typeparam name="TEntity">The entity type.</typeparam>
-        /// <param name="entity">The entity.</param>
+        /// <param name="builder">The entity type builder.</param>
         /// <returns>The key builder.</returns>
-        public static EntityTypeBuilder<TEntity> PublicId<TEntity>(this EntityTypeBuilder<TEntity> entity) where TEntity : class, IEntity.IPublicId
+        public static EntityTypeBuilder<TEntity> PublicId<TEntity>(this EntityTypeBuilder<TEntity> builder) where TEntity : class, IEntity
         {
-            entity.HasAlternateKey(e => e.PublicId);
+            builder.HasAlternateKey(e => e.PublicId);
 
-            entity.Property(e => e.PublicId).IsRequired();
+            builder.Property(e => e.PublicId).IsRequired();
 
-            return entity;
+            return builder;
         }
 
         /// <summary>
         /// Maps the row version identifier property.
         /// </summary>
         /// <typeparam name="TEntity">The entity type.</typeparam>
-        /// <param name="entity">The entity.</param>
+        /// <param name="builder">The entity type builder.</param>
         /// <returns>The key builder.</returns>
-        public static EntityTypeBuilder<TEntity> RowVersionId<TEntity>(this EntityTypeBuilder<TEntity> entity) where TEntity : class, IEntity.IRowVersionId
+        public static EntityTypeBuilder<TEntity> RowVersionId<TEntity>(this EntityTypeBuilder<TEntity> builder) where TEntity : class, IEntity
         {
-            entity.Property(e => e.RowVersionId).IsConcurrencyToken().IsRequired();
+            builder.Property(e => e.RowVersionId).IsConcurrencyToken().IsRequired();
 
-            return entity;
+            return builder;
         }
     }
 }

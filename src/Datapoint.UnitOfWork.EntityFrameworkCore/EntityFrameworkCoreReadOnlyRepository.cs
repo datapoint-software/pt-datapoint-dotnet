@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Datapoint.UnitOfWork.EntityFrameworkCore
 {
@@ -9,7 +12,7 @@ namespace Datapoint.UnitOfWork.EntityFrameworkCore
     /// <typeparam name="TEntity">The entity type.</typeparam>
     public abstract class EntityFrameworkCoreReadOnlyRepository<TEntityFrameworkCoreUnitOfWork, TEntity> : IReadOnlyRepository<TEntity> 
         where TEntityFrameworkCoreUnitOfWork : EntityFrameworkCoreUnitOfWork
-        where TEntity : class
+        where TEntity : class, IEntity
     {
         /// <summary>
         /// Creates a new entity framework core repository.
@@ -29,5 +32,15 @@ namespace Datapoint.UnitOfWork.EntityFrameworkCore
         /// Gets the context.
         /// </summary>
         protected TEntityFrameworkCoreUnitOfWork UnitOfWork { get; }
+
+        /// <inheritdoc />
+        public Task<TEntity?> GetByIdAsync(long id, CancellationToken ct) =>
+
+            Entities.FirstOrDefaultAsync(e => e.Id == id, ct);
+
+        /// <inheritdoc />
+        public Task<TEntity?> GetByPublicIdAsync(Guid publicId, CancellationToken ct) =>
+
+            Entities.FirstOrDefaultAsync(e => e.PublicId == publicId, ct);
     }
 }

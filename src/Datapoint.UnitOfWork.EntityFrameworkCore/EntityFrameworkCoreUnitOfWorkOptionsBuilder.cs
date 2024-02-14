@@ -158,8 +158,6 @@ namespace Datapoint.UnitOfWork.EntityFrameworkCore
 
         internal EntityFrameworkCoreUnitOfWorkOptions<TEntityFrameworkCoreUnitOfWork> BuildOptions() => 
             
-            new EntityFrameworkCoreUnitOfWorkOptions<TEntityFrameworkCoreUnitOfWork>(
-                _contextConfiguration,
-                ServiceLifetime);
+            new (_contextConfiguration, ServiceLifetime);
     }
 }
