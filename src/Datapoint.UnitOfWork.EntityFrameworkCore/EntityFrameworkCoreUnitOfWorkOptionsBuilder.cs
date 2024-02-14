@@ -7,10 +7,10 @@ namespace Datapoint.UnitOfWork.EntityFrameworkCore
     /// <summary>
     /// An Entity Framework Core unit of work options builder.
     /// </summary>
-    public sealed class EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreContext> 
-        where TEntityFrameworkCoreContext : EntityFrameworkCoreContext
+    public sealed class EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreUnitOfWork> 
+        where TEntityFrameworkCoreUnitOfWork : EntityFrameworkCoreUnitOfWork
     {
-        private Action<DbContextOptionsBuilder<TEntityFrameworkCoreContext>>? _contextConfiguration;
+        private Action<DbContextOptionsBuilder<TEntityFrameworkCoreUnitOfWork>>? _contextConfiguration;
 
         /// <summary>
         /// Creates a new Entity Framework Core unit of work options builder.
@@ -37,7 +37,7 @@ namespace Datapoint.UnitOfWork.EntityFrameworkCore
         /// </summary>
         /// <typeparam name="T">The type of which to get the assembly repositories from.</typeparam>
         /// <returns>The Entity Framework Core unit of work options builder.</returns>
-        public EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreContext> AddRepositoriesFromAssemblyOf<T>() where T : class =>
+        public EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreUnitOfWork> AddRepositoriesFromAssemblyOf<T>() where T : class =>
 
             AddRepositoriesFromAssemblyOf<T>(ServiceLifetime.Scoped);
 
@@ -47,7 +47,7 @@ namespace Datapoint.UnitOfWork.EntityFrameworkCore
         /// <typeparam name="T">The type of which to get the assembly repositories from.</typeparam>
         /// <param name="serviceLifetime">The repositories service lifetime.</param>
         /// <returns>The Entity Framework Core unit of work options builder.</returns>
-        public EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreContext> AddRepositoriesFromAssemblyOf<T>(ServiceLifetime serviceLifetime) where T : class
+        public EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreUnitOfWork> AddRepositoriesFromAssemblyOf<T>(ServiceLifetime serviceLifetime) where T : class
         {
             foreach (var implementationType in typeof(T).Assembly.GetTypes())
             {
@@ -105,7 +105,7 @@ namespace Datapoint.UnitOfWork.EntityFrameworkCore
         /// </summary>
         /// <typeparam name="T">The type of which to get the assembly workers from.</typeparam>
         /// <returns>The Entity Framework Core unit of work options builder.</returns>
-        public EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreContext> AddWorkersFromAssemblyOf<T>() where T : class =>
+        public EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreUnitOfWork> AddWorkersFromAssemblyOf<T>() where T : class =>
 
             AddWorkersFromAssemblyOf<T>(ServiceLifetime.Transient);
 
@@ -115,7 +115,7 @@ namespace Datapoint.UnitOfWork.EntityFrameworkCore
         /// <typeparam name="T">The type of which to get the assembly workers from.</typeparam>
         /// <param name="serviceLifetime">The workers service lifetime.</param>
         /// <returns>The Entity Framework Core unit of work options builder.</returns>
-        public EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreContext> AddWorkersFromAssemblyOf<T>(ServiceLifetime serviceLifetime) where T : class
+        public EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreUnitOfWork> AddWorkersFromAssemblyOf<T>(ServiceLifetime serviceLifetime) where T : class
         {
             foreach (var implementationType in typeof(T).Assembly.GetTypes())
             {
@@ -145,20 +145,20 @@ namespace Datapoint.UnitOfWork.EntityFrameworkCore
         }
 
         /// <summary>
-        /// Registers a context options configuration action.
+        /// Uses a context options configuration action.
         /// </summary>
-        /// <param name="configure">The configuration action.</param>
+        /// <param name="contextConfiguration">The configuration action.</param>
         /// <returns>The Entity Framework Core unit of work options builder.</returns>
-        public EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreContext> UseContextConfiguration(Action<DbContextOptionsBuilder<TEntityFrameworkCoreContext>>? configure)
+        public EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreUnitOfWork> UseContextConfiguration(Action<DbContextOptionsBuilder<TEntityFrameworkCoreUnitOfWork>>? contextConfiguration)
         {
-            _contextConfiguration = configure;
+            _contextConfiguration = contextConfiguration;
 
             return this;
         }
 
-        internal EntityFrameworkCoreUnitOfWorkOptions<TEntityFrameworkCoreContext> BuildOptions() => 
+        internal EntityFrameworkCoreUnitOfWorkOptions<TEntityFrameworkCoreUnitOfWork> BuildOptions() => 
             
-            new EntityFrameworkCoreUnitOfWorkOptions<TEntityFrameworkCoreContext>(
+            new EntityFrameworkCoreUnitOfWorkOptions<TEntityFrameworkCoreUnitOfWork>(
                 _contextConfiguration,
                 ServiceLifetime);
     }

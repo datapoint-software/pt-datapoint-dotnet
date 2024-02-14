@@ -14,33 +14,31 @@ namespace Datapoint.UnitOfWork.EntityFrameworkCore
         /// </summary>
         /// <typeparam name="TEntityFrameworkCoreUnitOfWorkDefinition">The Entity Framework Core unit of work definition type.</typeparam>
         /// <typeparam name="TEntityFrameworkCoreUnitOfWork">The Entity Framework Core unit of work implementation type.</typeparam>
-        /// <typeparam name="TEntityFrameworkCoreContext">The Entity Framework Core context type.</typeparam>
         /// <param name="services">The service collection.</param>
         /// <param name="configure">The configuration action.</param>
         /// <returns>The service collection.</returns>
-        public static IServiceCollection AddEntityFrameworkCoreUnitOfWork<TEntityFrameworkCoreUnitOfWorkDefinition, TEntityFrameworkCoreUnitOfWork, TEntityFrameworkCoreContext>(this IServiceCollection services, Action<EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreContext>>? configure)
+        public static IServiceCollection AddEntityFrameworkCoreUnitOfWork<TEntityFrameworkCoreUnitOfWorkDefinition, TEntityFrameworkCoreUnitOfWork>(this IServiceCollection services, Action<EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreUnitOfWork>>? configure)
             where TEntityFrameworkCoreUnitOfWorkDefinition : IUnitOfWork
-            where TEntityFrameworkCoreUnitOfWork : EntityFrameworkCoreUnitOfWork<TEntityFrameworkCoreContext>
-            where TEntityFrameworkCoreContext : EntityFrameworkCoreContext
+            where TEntityFrameworkCoreUnitOfWork : EntityFrameworkCoreUnitOfWork, TEntityFrameworkCoreUnitOfWorkDefinition
         {
-            var optionsBuilder = new EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreContext>(services);
+            var optionsBuilder = new EntityFrameworkCoreUnitOfWorkOptionsBuilder<TEntityFrameworkCoreUnitOfWork>(services);
 
             configure?.Invoke(optionsBuilder);
 
             var options = optionsBuilder.BuildOptions();
 
-            services.AddDbContextFactory<TEntityFrameworkCoreContext>(
+            services.AddDbContextFactory<TEntityFrameworkCoreUnitOfWork>(
                 (context) =>
                 {
-                    options.ContextConfiguration?.Invoke((DbContextOptionsBuilder<TEntityFrameworkCoreContext>) context);
+                    options.ContextConfiguration?.Invoke((DbContextOptionsBuilder<TEntityFrameworkCoreUnitOfWork>) context);
                 },
                 options.ServiceLifetime);
 
             services.Add(
                 new ServiceDescriptor(
                     typeof(TEntityFrameworkCoreUnitOfWorkDefinition),
-                    typeof(TEntityFrameworkCoreUnitOfWork),
-                    options.ServiceLifetime));
+                    (services) => services.GetRequiredService<TEntityFrameworkCoreUnitOfWork>(),
+                    ServiceLifetime.Transient));
 
             return services;
         }

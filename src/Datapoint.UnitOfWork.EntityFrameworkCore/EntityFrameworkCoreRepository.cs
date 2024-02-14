@@ -1,12 +1,12 @@
 ﻿namespace Datapoint.UnitOfWork.EntityFrameworkCore
 {
     /// <inheritdoc />
-    public abstract class EntityFrameworkCoreRepository<TEntityFrameworkCoreContext, TEntity> : EntityFrameworkCoreReadOnlyRepository<TEntityFrameworkCoreContext, TEntity>, IRepository<TEntity>
-        where TEntityFrameworkCoreContext : EntityFrameworkCoreContext
+    public abstract class EntityFrameworkCoreRepository<TEntityFrameworkCoreUnitOfWork, TEntity> : EntityFrameworkCoreReadOnlyRepository<TEntityFrameworkCoreUnitOfWork, TEntity>, IRepository<TEntity>
+        where TEntityFrameworkCoreUnitOfWork : EntityFrameworkCoreUnitOfWork
         where TEntity : class, IEntity
     {
         /// <inheritdoc />
-        protected EntityFrameworkCoreRepository(TEntityFrameworkCoreContext context) : base(context)
+        protected EntityFrameworkCoreRepository(TEntityFrameworkCoreUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 

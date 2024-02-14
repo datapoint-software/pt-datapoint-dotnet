@@ -8,18 +8,36 @@ namespace Datapoint.UnitOfWork
     public interface IEntity
     {
         /// <summary>
-        /// Gets or sets the entity identifier.
+        /// An entity with an identifier.
         /// </summary>
-        long Id { get; set; }
+        public interface IId : IEntity
+        {
+            /// <summary>
+            /// Gets or sets the identifier.
+            /// </summary>
+            long Id { get; set; }
+        }
 
         /// <summary>
-        /// Gets or sets the entity globally unique public identifier.
+        /// An entity with a public identifier.
         /// </summary>
-        Guid PublicId { get; set; }
+        public interface IPublicId : IEntity
+        {
+            /// <summary>
+            /// Gets or sets the public identifier.
+            /// </summary>
+            Guid PublicId { get; set; }
+        }
 
         /// <summary>
-        /// Gets or sets the entity globally unique row version identifier.
+        /// An entity with a row version identifier.
         /// </summary>
-        Guid RowVersionId { get; set; }
+        public interface IRowVersionId : IEntity
+        {
+            /// <summary>
+            /// Gets or sets the row version identifier.
+            /// </summary>
+            Guid RowVersionId { get; set; }
+        }
     }
 }

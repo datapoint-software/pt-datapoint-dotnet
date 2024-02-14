@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Datapoint.UnitOfWork.EntityFrameworkCore
@@ -6,26 +8,53 @@ namespace Datapoint.UnitOfWork.EntityFrameworkCore
     /// <summary>
     /// An Entity Framework Core unit of work.
     /// </summary>
-    /// <typeparam name="TEntityFrameworkCoreContext">The Entity Framework Core context type.</typeparam>
-    public abstract class EntityFrameworkCoreUnitOfWork<TEntityFrameworkCoreContext> : IUnitOfWork where TEntityFrameworkCoreContext : EntityFrameworkCoreContext
+    public abstract class EntityFrameworkCoreUnitOfWork : DbContext, IUnitOfWork
     {
         /// <summary>
-        /// Creates a new unit of work.
+        /// Creates a new Entity Framework Core unit of work.
         /// </summary>
-        /// <param name="context">The Entity Framework Core context.</param>
-        public EntityFrameworkCoreUnitOfWork(TEntityFrameworkCoreContext context)
+        /// <param name="options">The context options.</param>
+        protected EntityFrameworkCoreUnitOfWork(DbContextOptions options) : base(options)
         {
-            Context = context;
+            ChangeTracker.Tracked += (sender, e) =>
+            {
+                if (e.Entry.State == EntityState.Added)
+                {
+                    if (e.Entry.Entity is IEntity entity)
+                    {
+                        if ((entity is IEntity.IPublicId entityWithPublicId) && entityWithPublicId.PublicId == default)
+                            entityWithPublicId.PublicId = Guid.NewGuid();
+
+                        if ((entity is IEntity.IRowVersionId entityWithRowVersionId) && entityWithRowVersionId.RowVersionId == default)
+                            entityWithRowVersionId.RowVersionId = Guid.NewGuid();
+                    }
+                }
+            };
+
+            SavingChanges += (sender, e) =>
+            {
+                foreach (var entry in ChangeTracker.Entries())
+                {
+                    if (entry.State == EntityState.Modified)
+                    {
+                        if (entry.Entity is IEntity entity)
+                        {
+                            if ((entity is IEntity.IPublicId entityWithPublicId) && entityWithPublicId.PublicId == default)
+                                entityWithPublicId.PublicId = Guid.NewGuid();
+
+                            if ((entity is IEntity.IRowVersionId entityWithRowVersionId) && (entityWithRowVersionId.RowVersionId == default || entityWithRowVersionId.RowVersionId == entry.OriginalValues.GetValue<Guid>("RowVersionId")))
+                                entityWithRowVersionId.RowVersionId = Guid.NewGuid();
+                        }
+                    }
+                }
+            };
+
+            ChangeTracker.LazyLoadingEnabled = false;
         }
 
-        /// <summary>
-        /// Gets the context.
-        /// </summary>
-        public TEntityFrameworkCoreContext Context { get; }
-
         /// <inheritdoc />
-        public Task SaveChangesAsync(CancellationToken ct) => 
-            
-            Context.SaveChangesAsync(ct);
+        Task IUnitOfWork.SaveChangesAsync(CancellationToken ct) =>
+
+            base.SaveChangesAsync(ct);
     }
 }

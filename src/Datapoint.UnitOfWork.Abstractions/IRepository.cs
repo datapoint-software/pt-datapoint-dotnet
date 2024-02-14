@@ -4,7 +4,7 @@
     /// A repository.
     /// </summary>
     /// <typeparam name="TEntity">The entity type.</typeparam>
-    public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEntity : class, IEntity
+    public interface IRepository<TEntity> : IReadOnlyRepository<TEntity> where TEntity : class
     {
         /// <summary>
         /// Adds an entity to the repository.

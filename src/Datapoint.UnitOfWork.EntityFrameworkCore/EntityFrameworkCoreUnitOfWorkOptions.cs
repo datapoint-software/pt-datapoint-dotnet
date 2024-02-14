@@ -4,16 +4,16 @@ using System;
 
 namespace Datapoint.UnitOfWork.EntityFrameworkCore
 {
-    internal sealed class EntityFrameworkCoreUnitOfWorkOptions<TEntityFrameworkCoreContext>
-        where TEntityFrameworkCoreContext : EntityFrameworkCoreContext
+    internal sealed class EntityFrameworkCoreUnitOfWorkOptions<TEntityFrameworkCoreUnitOfWork>
+        where TEntityFrameworkCoreUnitOfWork : EntityFrameworkCoreUnitOfWork
     {
-        public EntityFrameworkCoreUnitOfWorkOptions(Action<DbContextOptionsBuilder<TEntityFrameworkCoreContext>>? contextConfiguration, ServiceLifetime serviceLifetime)
+        public EntityFrameworkCoreUnitOfWorkOptions(Action<DbContextOptionsBuilder<TEntityFrameworkCoreUnitOfWork>>? contextConfiguration, ServiceLifetime serviceLifetime)
         {
             ContextConfiguration = contextConfiguration;
             ServiceLifetime = serviceLifetime;
         }
 
-        public Action<DbContextOptionsBuilder<TEntityFrameworkCoreContext>>? ContextConfiguration { get; }
+        public Action<DbContextOptionsBuilder<TEntityFrameworkCoreUnitOfWork>>? ContextConfiguration { get; }
 
         public ServiceLifetime ServiceLifetime { get; }
     }
