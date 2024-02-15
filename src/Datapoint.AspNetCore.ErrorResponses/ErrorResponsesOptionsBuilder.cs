@@ -34,19 +34,53 @@ namespace Datapoint.AspNetCore.ErrorResponses
         /// <summary>
         /// Adds a JSON path.
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public ErrorResponsesOptionsBuilder AddJsonPath(string path)
+        /// <param name="path">The path.</param>
+        /// <returns>The error response options builder.</returns>
+        public ErrorResponsesOptionsBuilder AddJsonPath(string path) =>
 
-            => AddJsonPath(new PathString(path));
+            AddJsonPath(new PathString(path));
 
         /// <summary>
         /// Adds a JSON path.
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="path">The path.</param>
+        /// <returns>The error response options builder.</returns>
         public ErrorResponsesOptionsBuilder AddJsonPath(PathString path)
         {
+            _jsonPaths.Add(path);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Clears the JSON paths.
+        /// </summary>
+        /// <returns>The error responses options builder.</returns>
+        public ErrorResponsesOptionsBuilder ClearJsonPaths()
+        {
+            _jsonPaths.Clear();
+
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the JSON path.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns>The error responses options builder.</returns>
+        public ErrorResponsesOptionsBuilder SetJsonPath(string path) =>
+
+            SetJsonPath(new PathString(path));
+
+
+        /// <summary>
+        /// Sets the JSON path.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns>The error responses options builder.</returns>
+        public ErrorResponsesOptionsBuilder SetJsonPath(PathString path)
+        {
+            _jsonPaths.Clear();
             _jsonPaths.Add(path);
 
             return this;

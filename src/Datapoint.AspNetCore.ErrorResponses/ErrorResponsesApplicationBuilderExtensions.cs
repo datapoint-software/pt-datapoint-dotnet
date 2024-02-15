@@ -53,9 +53,10 @@ namespace Datapoint.AspNetCore.ErrorResponses
 
                     var ct = httpContext.RequestAborted;
 
-                    var json = options.JsonPaths
-                        .Any(jp => httpContext.Request.Path
-                            .StartsWithSegments(jp));
+                    var json = options.JsonPaths.Any(jp => 
+                        jp.HasValue == false || 
+                        jp.Value.Equals("/", StringComparison.OrdinalIgnoreCase) || 
+                        httpContext.Request.Path.StartsWithSegments(jp));
 
                     if (json)
                     {
