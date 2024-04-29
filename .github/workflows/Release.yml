@@ -5,15 +5,15 @@ on:
       - v*
 jobs:
   build:
-    runs-on: [ self-hosted, Windows, X64 ]
+    runs-on: [ self-hosted, windows, x64 ]
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
-      - name: Restore dependencies
+      - name: Restore
         run: dotnet restore
         working-directory: src
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet publish Datapoint.sln --no-restore
         working-directory: src
       - name: Pack
         run: dotnet pack Datapoint.sln -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg --no-build --no-restore --output ../dist 
