@@ -12,14 +12,16 @@ namespace Datapoint.AspNetCore.ErrorResponses
         /// </summary>
         /// <param name="id">The error identifier.</param>
         /// <param name="correlationId">The error correlation identifier.</param>
+        /// <param name="source">The error source.</param>
         /// <param name="code">The error code.</param>
         /// <param name="message">The error message.</param>
         /// <param name="innerErrors">The inner errors.</param>
         /// <param name="exception">The exception.</param>
-        public ErrorResponseModel(string? id, string? correlationId, string? code, string message, IReadOnlyDictionary<string, IReadOnlyCollection<ErrorModel>>? innerErrors, ExceptionModel? exception)
+        public ErrorResponseModel(string? id, string? correlationId, string source, string? code, string message, IReadOnlyDictionary<string, IReadOnlyCollection<ErrorModel>>? innerErrors, ExceptionModel? exception)
         {
             Id = id;
             CorrelationId = correlationId;
+            Source = source;
             Code = code;
             Message = message;
             InnerErrors = innerErrors;
@@ -35,6 +37,11 @@ namespace Datapoint.AspNetCore.ErrorResponses
         /// Gets the error correlation identifier.
         /// </summary>
         public string? CorrelationId { get; }
+
+        /// <summary>
+        /// Gets the error source.
+        /// </summary>
+        public string Source { get; }
 
         /// <summary>
         /// Gets the error code.

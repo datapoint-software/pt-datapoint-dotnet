@@ -11,11 +11,13 @@ namespace Datapoint.AspNetCore.ErrorResponses
             Func<Exception, string?>? errorMessageFactory,
             IReadOnlyCollection<PathString> jsonPaths,
             JsonSerializerOptions jsonSerializerOptions,
+            string source,
             bool stackTraceEnabled)
         {
             ErrorMessageFactory = errorMessageFactory;
             JsonPaths = jsonPaths;
             JsonSerializerOptions = jsonSerializerOptions;
+            Source = source;
             StackTraceEnabled = stackTraceEnabled;
         }
 
@@ -25,6 +27,8 @@ namespace Datapoint.AspNetCore.ErrorResponses
 
         public JsonSerializerOptions JsonSerializerOptions { get; }
 
-        public bool StackTraceEnabled { get; set; }
+        public string Source { get; }
+
+        public bool StackTraceEnabled { get; }
     }
 }

@@ -27,6 +27,11 @@ namespace Datapoint.AspNetCore.ErrorResponses
         public JsonSerializerOptions? JsonSerializerOptions { get; set; }
 
         /// <summary>
+        /// Gets or sets the error source.
+        /// </summary>
+        public string Source { get; set; } = "app";
+
+        /// <summary>
         /// Gets or sets the stack trace enabled option.
         /// </summary>
         public bool StackTraceEnabled { get; set; } = false;
@@ -101,6 +106,7 @@ namespace Datapoint.AspNetCore.ErrorResponses
                     ReadCommentHandling = JsonCommentHandling.Disallow,
                     WriteIndented = false
                 },
+                Source,
                 StackTraceEnabled);
         }
     }

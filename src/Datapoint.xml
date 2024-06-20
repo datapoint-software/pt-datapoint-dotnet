@@ -18,8 +18,8 @@
 
 	<PropertyGroup>
 		<AssemblyVersion>8.0.0</AssemblyVersion>
-		<FileVersion>8.0.0.24120</FileVersion>
-		<VersionPrefix>8.0.0-a.44</VersionPrefix>
+		<FileVersion>8.0.0.24172</FileVersion>
+		<VersionPrefix>8.0.0-a.45</VersionPrefix>
 	</PropertyGroup>
 
 </Project>

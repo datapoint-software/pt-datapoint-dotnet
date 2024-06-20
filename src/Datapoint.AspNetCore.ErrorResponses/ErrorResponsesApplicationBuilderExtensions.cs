@@ -63,6 +63,7 @@ namespace Datapoint.AspNetCore.ErrorResponses
                         await WriteJsonResponseAsync(
                             httpContext,
                             exception,
+                            options.Source,
                             options.StackTraceEnabled,
                             options.ErrorMessageFactory,
                             options.JsonSerializerOptions,
@@ -73,6 +74,7 @@ namespace Datapoint.AspNetCore.ErrorResponses
                         WriteRedirectResponse(
                             httpContext,
                             exception,
+                            options.Source,
                             options.StackTraceEnabled,
                             options.ErrorMessageFactory);
                     }
@@ -80,7 +82,7 @@ namespace Datapoint.AspNetCore.ErrorResponses
             });
         }
 
-        private static Task WriteJsonResponseAsync(HttpContext httpContext, Exception exception, bool includeStackTrace, Func<Exception, string?>? errorMessageFactory, JsonSerializerOptions jsonSerializerOptions, CancellationToken ct)
+        private static Task WriteJsonResponseAsync(HttpContext httpContext, Exception exception, string source, bool includeStackTrace, Func<Exception, string?>? errorMessageFactory, JsonSerializerOptions jsonSerializerOptions, CancellationToken ct)
         {
             httpContext.Response.StatusCode = CreateStatusCode(exception);
 
@@ -88,6 +90,7 @@ namespace Datapoint.AspNetCore.ErrorResponses
                 new ErrorResponseModel(
                     exception.TryGetId(out var id) ? id : null,
                     exception.TryGetCorrelationId(out var correlationId) ? correlationId : null,
+                    source,
                     exception.TryGetErrorCode(out var errorCode) ? errorCode : null,
                     CreateErrorMessage(exception, errorMessageFactory),
                     exception.TryGetInnerErrors(out var innerErrors) 
@@ -104,7 +107,7 @@ namespace Datapoint.AspNetCore.ErrorResponses
                 ct);
         }            
 
-        private static void WriteRedirectResponse(HttpContext httpContext, Exception exception, bool includeStackTrace, Func<Exception, string?>? errorMessageFactory)
+        private static void WriteRedirectResponse(HttpContext httpContext, Exception exception, string source, bool includeStackTrace, Func<Exception, string?>? errorMessageFactory)
         {
             var sb = new StringBuilder("/error");
             var sbInitialLength = sb.Length;
@@ -130,6 +133,9 @@ namespace Datapoint.AspNetCore.ErrorResponses
 
             sb.Append("&message=");
             sb.Append(Encode(CreateErrorMessage(exception, errorMessageFactory)));
+
+            sb.Append("&source=");
+            sb.Append(Encode(source));
 
             sb.Append("&statusCode=");
             sb.Append(CreateStatusCode(exception));
