@@ -128,14 +128,14 @@ namespace Datapoint.AspNetCore.ErrorResponses
             if (exception.TryGetErrorCode(out var errorCode))
             {
                 sb.Append("&code=");
-                sb.Append(Encode(errorCode));
+                sb.Append(HttpUtility.UrlEncode(errorCode));
             }
 
             sb.Append("&message=");
-            sb.Append(Encode(CreateErrorMessage(exception, errorMessageFactory)));
+            sb.Append(HttpUtility.UrlEncode(CreateErrorMessage(exception, errorMessageFactory)));
 
             sb.Append("&source=");
-            sb.Append(Encode(source));
+            sb.Append(HttpUtility.UrlEncode(source));
 
             sb.Append("&statusCode=");
             sb.Append(CreateStatusCode(exception));
@@ -143,7 +143,7 @@ namespace Datapoint.AspNetCore.ErrorResponses
             if (includeStackTrace && !string.IsNullOrEmpty(exception.StackTrace))
             {
                 sb.Append("&stackTrace=");
-                sb.Append(Encode(
+                sb.Append(HttpUtility.UrlEncode(
                     (exception.GetType().FullName ?? exception.GetType().Name) + ": \n" +
                     exception.StackTrace));
             }
@@ -183,10 +183,5 @@ namespace Datapoint.AspNetCore.ErrorResponses
             exception is TimeoutException ? 504 :
             exception is ValidationException ? 400 :
                 500;
-
-        private static string Encode(string component) => Convert.ToBase64String(
-            Encoding.Default.GetBytes(
-                HttpUtility.UrlEncode(
-                    component)));
     }
 }
