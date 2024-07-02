@@ -22,6 +22,15 @@ namespace Datapoint.AspNetCore.HealthChecks
         /// Maps the health check endpoint.
         /// </summary>
         /// <param name="app">The web application.</param>
+        /// <returns>A convention routes for the health checks endpoint.</returns>
+        public static IEndpointConventionBuilder MapHealthChecks(this WebApplication app) =>
+
+            MapHealthChecks(app, null);
+
+        /// <summary>
+        /// Maps the health check endpoint.
+        /// </summary>
+        /// <param name="app">The web application.</param>
         /// <param name="configure">The health checks configuration action.</param>
         /// <returns>A convention routes for the health checks endpoint.</returns>
         public static IEndpointConventionBuilder MapHealthChecks(this WebApplication app, Action<HealthChecksOptionsBuilder>? configure)
