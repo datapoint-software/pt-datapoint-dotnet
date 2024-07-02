@@ -59,6 +59,7 @@ namespace Datapoint.AspNetCore.HealthChecks
 
                     httpContext.Response.WriteAsJsonAsync(
                         model,
+                        options.JsonSerializerOptions,
                         httpContext.RequestAborted);
 
                     return Task.CompletedTask;

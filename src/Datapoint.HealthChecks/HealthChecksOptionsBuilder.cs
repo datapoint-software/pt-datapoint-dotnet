@@ -36,7 +36,7 @@ namespace Datapoint.AspNetCore.HealthChecks
         {
             return new HealthChecksOptions(
                 JsonSerializerOptions
-                    ?? DatapointDefaults.CreateJsonSerializerOptions(),
+                    ?? DatapointDefaults.CreateJsonSerializerOptions(_webHostEnvironment),
                 Path,
                 StackTraceEnabled.HasValue
                     ? StackTraceEnabled.Value
