@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,16 +16,16 @@ using System.Web;
 namespace Datapoint.AspNetCore.ErrorResponses
 {
     /// <summary>
-    /// Extension methods for <see cref="IApplicationBuilder"/>.
+    /// Extension methods for <see cref="WebApplication"/>.
     /// </summary>
-    public static class ErrorResponsesApplicationBuilderExtensions
+    public static class ErrorResponsesWebApplicationExtensions
     {
         /// <summary>
         /// Enables error responses.
         /// </summary>
         /// <param name="app">The application builder.</param>
         /// <returns>The application builder.</returns>
-        public static IApplicationBuilder UseErrorResponses(this IApplicationBuilder app)
+        public static IApplicationBuilder UseErrorResponses(this WebApplication app)
 
             => app.UseErrorResponses(null);
 
@@ -33,9 +35,9 @@ namespace Datapoint.AspNetCore.ErrorResponses
         /// <param name="app">The application builder.</param>
         /// <param name="configure">The configuration action.</param>
         /// <returns>The application builder.</returns>
-        public static IApplicationBuilder UseErrorResponses(this IApplicationBuilder app, Action<ErrorResponsesOptionsBuilder>? configure)
+        public static IApplicationBuilder UseErrorResponses(this WebApplication app, Action<ErrorResponsesOptionsBuilder>? configure)
         {
-            var optionsBuilder = new ErrorResponsesOptionsBuilder();
+            var optionsBuilder = new ErrorResponsesOptionsBuilder(app.Environment);
 
             configure?.Invoke(optionsBuilder);
 

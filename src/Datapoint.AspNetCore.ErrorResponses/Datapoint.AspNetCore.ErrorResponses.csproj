@@ -7,11 +7,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App" Version="8.0.0" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\Datapoint.AspNetCore.ErrorResponses.Abstractions\Datapoint.AspNetCore.ErrorResponses.Abstractions.csproj" />
+		<ProjectReference Include="..\Datapoint.AspNetCore\Datapoint.AspNetCore.csproj" />
 		<ProjectReference Include="..\Datapoint.Exceptions\Datapoint.Exceptions.csproj" />
 	</ItemGroup>
 

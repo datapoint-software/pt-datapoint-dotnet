@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Datapoint.xml" />
+
+	<PropertyGroup>
+		<RootNamespace>Datapoint.AspNetCore.HealthChecks</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Datapoint.AspNetCore\Datapoint.AspNetCore.csproj" />
+		<ProjectReference Include="..\Datapoint.HealthChecks.Abstractions\Datapoint.HealthChecks.Abstractions.csproj" />
+	</ItemGroup>
+
+</Project>

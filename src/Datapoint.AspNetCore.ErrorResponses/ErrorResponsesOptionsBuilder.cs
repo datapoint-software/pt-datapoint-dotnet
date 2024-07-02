@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace Datapoint.AspNetCore.ErrorResponses
 {
@@ -15,6 +16,13 @@ namespace Datapoint.AspNetCore.ErrorResponses
         {
             { new("/api") }
         };
+
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        internal ErrorResponsesOptionsBuilder(IWebHostEnvironment webHostEnvironment)
+        {
+            _webHostEnvironment = webHostEnvironment;
+        }
 
         /// <summary>
         /// Gets or sets the error message factory.
@@ -32,9 +40,9 @@ namespace Datapoint.AspNetCore.ErrorResponses
         public string Source { get; set; } = "app";
 
         /// <summary>
-        /// Gets or sets the stack trace enabled option.
+        /// Gets or sets the stack trace enabled flag.
         /// </summary>
-        public bool StackTraceEnabled { get; set; } = false;
+        public bool? StackTraceEnabled { get; set; }
 
         /// <summary>
         /// Adds a JSON path.
@@ -96,18 +104,12 @@ namespace Datapoint.AspNetCore.ErrorResponses
             return new ErrorResponsesOptions(
                 ErrorMessageFactory,
                 _jsonPaths,
-                JsonSerializerOptions ?? new JsonSerializerOptions()
-                {
-                    AllowTrailingCommas = false,
-                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                    DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
-                    IgnoreReadOnlyFields = false,
-                    IgnoreReadOnlyProperties = false,
-                    ReadCommentHandling = JsonCommentHandling.Disallow,
-                    WriteIndented = false
-                },
+                JsonSerializerOptions 
+                    ?? DatapointDefaults.CreateJsonSerializerOptions(_webHostEnvironment),
                 Source,
-                StackTraceEnabled);
+                StackTraceEnabled.HasValue 
+                    ? StackTraceEnabled.Value 
+                    : !_webHostEnvironment.IsProduction());
         }
     }
 }

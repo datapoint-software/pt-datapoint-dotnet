@@ -7,7 +7,7 @@ namespace Datapoint.AspNetCore.ErrorResponses
 {
     internal sealed class ErrorResponsesOptions
     {
-        public ErrorResponsesOptions(
+        internal ErrorResponsesOptions(
             Func<Exception, string?>? errorMessageFactory,
             IReadOnlyCollection<PathString> jsonPaths,
             JsonSerializerOptions jsonSerializerOptions,
@@ -21,14 +21,14 @@ namespace Datapoint.AspNetCore.ErrorResponses
             StackTraceEnabled = stackTraceEnabled;
         }
 
-        public Func<Exception, string?>? ErrorMessageFactory { get; }
+        internal Func<Exception, string?>? ErrorMessageFactory { get; }
 
-        public IReadOnlyCollection<PathString> JsonPaths { get; }
+        internal IReadOnlyCollection<PathString> JsonPaths { get; }
 
-        public JsonSerializerOptions JsonSerializerOptions { get; }
+        internal JsonSerializerOptions JsonSerializerOptions { get; }
 
-        public string Source { get; }
+        internal string Source { get; }
 
-        public bool StackTraceEnabled { get; }
+        internal bool StackTraceEnabled { get; }
     }
 }
