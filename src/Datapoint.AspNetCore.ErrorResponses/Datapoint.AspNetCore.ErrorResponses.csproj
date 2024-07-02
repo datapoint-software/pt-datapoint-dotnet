@@ -11,8 +11,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Datapoint.AspNetCore.ErrorResponses.Abstractions\Datapoint.AspNetCore.ErrorResponses.Abstractions.csproj" />
-	  <ProjectReference Include="..\Datapoint.Exceptions\Datapoint.Exceptions.csproj" />
+		<ProjectReference Include="..\Datapoint.AspNetCore.ErrorResponses.Abstractions\Datapoint.AspNetCore.ErrorResponses.Abstractions.csproj" />
+		<ProjectReference Include="..\Datapoint.Exceptions\Datapoint.Exceptions.csproj" />
 	</ItemGroup>
 
 </Project>
