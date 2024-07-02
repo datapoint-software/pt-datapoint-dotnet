@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -34,12 +35,17 @@ namespace Datapoint.UnitOfWork.EntityFrameworkCore
         protected TEntityFrameworkCoreUnitOfWork UnitOfWork { get; }
 
         /// <inheritdoc />
-        public Task<TEntity?> GetByIdAsync(long id, CancellationToken ct) =>
+        public async Task<IReadOnlyCollection<TEntity>> FindAllAsync(CancellationToken ct) =>
+
+            await Entities.ToListAsync(ct);
+
+        /// <inheritdoc />
+        public Task<TEntity?> FindByIdAsync(long id, CancellationToken ct) =>
 
             Entities.FirstOrDefaultAsync(e => e.Id == id, ct);
 
         /// <inheritdoc />
-        public Task<TEntity?> GetByPublicIdAsync(Guid publicId, CancellationToken ct) =>
+        public Task<TEntity?> FindByPublicIdAsync(Guid publicId, CancellationToken ct) =>
 
             Entities.FirstOrDefaultAsync(e => e.PublicId == publicId, ct);
     }
