@@ -163,7 +163,7 @@ namespace Datapoint.AspNetCore
             try
             {
                 value = (T) exception.Data[key]!;
-                return true;
+                return !(value == null);
             }
             catch 
             {
