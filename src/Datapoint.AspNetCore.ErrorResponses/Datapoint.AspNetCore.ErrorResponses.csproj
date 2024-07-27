@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Datapoint.xml" />
+
+	<PropertyGroup>
+		<RootNamespace>Datapoint.AspNetCore.ErrorResponses</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Datapoint.AspNetCore.ErrorResponses.Abstractions\Datapoint.AspNetCore.ErrorResponses.Abstractions.csproj" />
+		<ProjectReference Include="..\Datapoint.AspNetCore\Datapoint.AspNetCore.csproj" />
+	</ItemGroup>
+
+</Project>

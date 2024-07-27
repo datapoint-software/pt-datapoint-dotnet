@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Project>
+
+	<PropertyGroup>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<LangVersion>12</LangVersion>
+		<Nullable>enable</Nullable>
+		<RuntimeIdentifiers>linux-x64;win-x64</RuntimeIdentifiers>
+		<TargetFramework>net8.0</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+		<IsPackable>true</IsPackable>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<AssemblyVersion>8.0.0</AssemblyVersion>
+		<FileVersion>8.0.0.24208</FileVersion>
+		<VersionPrefix>8.0.0-a.63</VersionPrefix>
+	</PropertyGroup>
+
+</Project>
