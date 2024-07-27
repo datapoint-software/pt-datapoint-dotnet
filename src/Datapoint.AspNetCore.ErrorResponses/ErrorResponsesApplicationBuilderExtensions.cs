@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -78,6 +79,7 @@ namespace Datapoint.AspNetCore.ErrorResponses
                             await WriteJsonErrorResponseAsync(
                                 httpContext,
                                 exception,
+                                options.JsonSerializerOptions,
                                 options.StackTraceEnabled,
                                 id,
                                 correlationId,
@@ -142,7 +144,7 @@ namespace Datapoint.AspNetCore.ErrorResponses
             return sb.ToString();
         }
 
-        private static async Task WriteJsonErrorResponseAsync(HttpContext httpContext, Exception exception, bool stackTraceEnabled, string? id, string? correlationId, string? name, string message, int statusCode, CancellationToken ct)
+        private static async Task WriteJsonErrorResponseAsync(HttpContext httpContext, Exception exception, JsonSerializerOptions jsonSerializerOptions, bool stackTraceEnabled, string? id, string? correlationId, string? name, string message, int statusCode, CancellationToken ct)
         {
             httpContext.Response.StatusCode = statusCode;
 
@@ -161,6 +163,7 @@ namespace Datapoint.AspNetCore.ErrorResponses
                     stackTraceEnabled
                         ? exception.StackTrace
                         : null),
+                jsonSerializerOptions,
                 ct);
         }
     }
