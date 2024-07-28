@@ -3,7 +3,7 @@
 	<Import Project="../Datapoint.xml" />
 
 	<PropertyGroup>
-		<RootNamespace>Datapoint.AspNetCore</RootNamespace>
+		<RootNamespace>Datapoint</RootNamespace>
 	</PropertyGroup>
 
 </Project>

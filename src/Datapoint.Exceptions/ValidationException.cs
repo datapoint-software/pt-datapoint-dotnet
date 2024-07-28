@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Datapoint.AspNetCore
+namespace Datapoint
 {
     /// <summary>
     /// An exception thrown on object validation failures.

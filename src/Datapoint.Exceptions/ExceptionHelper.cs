@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Datapoint.AspNetCore
+namespace Datapoint
 {
     /// <summary>
     /// Helper methods for <see cref="Exception" />.
@@ -31,7 +31,7 @@ namespace Datapoint.AspNetCore
         /// <returns>The exception.</returns>
         public static TException AddCorrelationId<TException>(this TException exception, Guid correlationId) where TException : Exception =>
 
-            AddCorrelationId(exception, correlationId.ToString());
+            exception.AddCorrelationId(correlationId.ToString());
 
         /// <summary>
         /// Adds the correlation identifier to the exception data.
@@ -42,7 +42,7 @@ namespace Datapoint.AspNetCore
         /// <returns>The exception.</returns>
         public static TException AddCorrelationId<TException>(this TException exception, string correlationId) where TException : Exception =>
 
-            Add(exception, "CorrelationId", correlationId);
+            exception.Add("CorrelationId", correlationId);
 
         /// <summary>
         /// Adds an inner error.
@@ -54,8 +54,8 @@ namespace Datapoint.AspNetCore
         public static TException AddInnerError<TException>(this TException exception, Error error) where TException : Exception
         {
             var innerErrors = exception.Data.Contains("InnerErrors")
-                ? (List<Error>) exception.Data["InnerErrors"]!
-                : (List<Error>) (exception.Data["InnerErrors"] = new List<Error>(1));
+                ? (List<Error>)exception.Data["InnerErrors"]!
+                : (List<Error>)(exception.Data["InnerErrors"] = new List<Error>(1));
 
             innerErrors.Add(error);
 
@@ -71,7 +71,7 @@ namespace Datapoint.AspNetCore
         /// <returns>The exception.</returns>
         public static TException AddId<TException>(this TException exception, Guid id) where TException : Exception =>
 
-            AddId(exception, id.ToString());
+            exception.AddId(id.ToString());
 
         /// <summary>
         /// Adds the identifier to the exception data.
@@ -82,7 +82,7 @@ namespace Datapoint.AspNetCore
         /// <returns>The exception.</returns>
         public static TException AddId<TException>(this TException exception, string id) where TException : Exception =>
 
-            Add(exception, "Id", id);
+            exception.Add("Id", id);
 
         /// <summary>
         /// Adds the name to the exception data.
@@ -93,7 +93,7 @@ namespace Datapoint.AspNetCore
         /// <returns>The exception.</returns>
         public static TException AddName<TException>(this TException exception, string name) where TException : Exception =>
 
-            Add(exception, "Name", name);
+            exception.Add("Name", name);
 
         /// <summary>
         /// Attempts to get and cast the identifier from the exception data.
@@ -104,7 +104,7 @@ namespace Datapoint.AspNetCore
         /// <returns>The result.</returns>
         public static bool TryGetId<TException>(this TException exception, out string id) where TException : Exception =>
 
-            TryGetValue(exception, "Id", out id);
+            exception.TryGetValue("Id", out id);
 
         /// <summary>
         /// Attempts to get and cast the inner errors from the exception data.
@@ -115,7 +115,7 @@ namespace Datapoint.AspNetCore
         /// <returns>The exception.</returns>
         public static bool TryGetInnerErrors<TException>(this TException exception, out IEnumerable<Error> innerErrors) where TException : Exception
         {
-            if (TryGetValue<TException, List<Error>>(exception, "InnerErrors", out var innerErrorsList))
+            if (exception.TryGetValue<TException, List<Error>>("InnerErrors", out var innerErrorsList))
             {
                 innerErrors = innerErrorsList!;
                 return true;
@@ -136,7 +136,7 @@ namespace Datapoint.AspNetCore
         /// <returns>The result.</returns>
         public static bool TryGetCorrelationId<TException>(this TException exception, out string correlationId) where TException : Exception =>
 
-            TryGetValue(exception, "CorrelationId", out correlationId);
+            exception.TryGetValue("CorrelationId", out correlationId);
 
         /// <summary>
         /// Attempts to get and cast the name from the exception data.
@@ -147,7 +147,7 @@ namespace Datapoint.AspNetCore
         /// <returns>The result.</returns>
         public static bool TryGetName<TException>(this TException exception, out string name) where TException : Exception =>
 
-            TryGetValue(exception, "Name", out name);
+            exception.TryGetValue("Name", out name);
 
         /// <summary>
         /// Attempts to get and cast a value from the exception data.
@@ -162,10 +162,10 @@ namespace Datapoint.AspNetCore
         {
             try
             {
-                value = (T) exception.Data[key]!;
+                value = (T)exception.Data[key]!;
                 return !(value == null);
             }
-            catch 
+            catch
             {
                 value = default!;
                 return false;

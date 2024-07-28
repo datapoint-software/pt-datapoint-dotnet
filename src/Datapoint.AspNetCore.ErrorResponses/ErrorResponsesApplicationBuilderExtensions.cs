@@ -157,7 +157,7 @@ namespace Datapoint.AspNetCore.ErrorResponses
                     exception.TryGetInnerErrors(out var innerErrors)
                         ? innerErrors.Select(e => new ErrorModel(
                             e.Name,
-                            e.PropertyName,
+                            e.PropertyName.ConvertName(jsonSerializerOptions),
                             e.Message))
                         : null,
                     stackTraceEnabled
@@ -166,5 +166,13 @@ namespace Datapoint.AspNetCore.ErrorResponses
                 jsonSerializerOptions,
                 ct);
         }
+
+        private static string? ConvertName(this string? name, JsonSerializerOptions jsonSerializerOptions) =>
+
+            string.IsNullOrEmpty(name) 
+                ? name
+                : jsonSerializerOptions.PropertyNamingPolicy?.ConvertName(name)
+                    ?? name;
+
     }
 }

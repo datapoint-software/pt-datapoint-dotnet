@@ -1,4 +1,4 @@
-﻿namespace Datapoint.AspNetCore
+﻿namespace Datapoint
 {
     /// <summary>
     /// An error.

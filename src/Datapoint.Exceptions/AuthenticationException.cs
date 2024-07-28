@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Datapoint.AspNetCore
+namespace Datapoint
 {
     /// <summary>
     /// An exception thrown on authentication failures.
