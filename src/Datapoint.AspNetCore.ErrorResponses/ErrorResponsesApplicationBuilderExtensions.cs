@@ -56,7 +56,7 @@ namespace Datapoint.AspNetCore.ErrorResponses
                 {
                     var ct = httpContext.RequestAborted;
 
-                    var message = exception is BusinessException or ValidationException
+                    var message = exception is AuthenticationException or AuthorizationException or BusinessException or ValidationException
                             ? exception.Message
                             : options.ErrorMessageFactory?.Invoke(exception)
                                 ?? "We have encountered an unexpected error.";
