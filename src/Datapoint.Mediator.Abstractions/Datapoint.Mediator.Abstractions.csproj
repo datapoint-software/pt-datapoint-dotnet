@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Datapoint.xml" />
+
+	<PropertyGroup>
+		<RootNamespace>Datapoint.Mediator</RootNamespace>
+	</PropertyGroup>
+
+</Project>
