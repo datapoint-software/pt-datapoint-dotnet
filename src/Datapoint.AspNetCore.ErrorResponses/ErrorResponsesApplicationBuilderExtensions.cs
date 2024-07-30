@@ -167,12 +167,15 @@ namespace Datapoint.AspNetCore.ErrorResponses
                 ct);
         }
 
-        private static string? ConvertName(this string? name, JsonSerializerOptions jsonSerializerOptions) =>
+        private static string? ConvertName(this string? name, JsonSerializerOptions jsonSerializerOptions)
+        {
+            if (string.IsNullOrEmpty(name))
+                return null;
 
-            string.IsNullOrEmpty(name) 
-                ? name
-                : jsonSerializerOptions.PropertyNamingPolicy?.ConvertName(name)
-                    ?? name;
+            if (jsonSerializerOptions.PropertyNamingPolicy is null)
+                return name;
 
+            return string.Join('.', name.Split('.').Select(jsonSerializerOptions.PropertyNamingPolicy.ConvertName));
+        }
     }
 }
